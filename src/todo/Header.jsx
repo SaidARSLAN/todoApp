@@ -6,11 +6,16 @@ import '@fontsource/roboto/700.css';
 import { Button, Typography } from '@mui/material';
 
 const Header = () => {
+
+    const handeLogin = () => {
+        
+    }
+
   return (
     <header className='header'>
         <Typography variant='h5'>SYSTEM LOGO</Typography>
         <div>
-            <Button variant='contained' size='large'>Login</Button>
+            <Button variant='contained' size='large' onClick={handeLogin}>Login</Button>
         </div>
     </header>
   )

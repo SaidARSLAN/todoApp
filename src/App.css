@@ -28,3 +28,12 @@ html,body {
   justify-content: space-between;
   padding:0px 120px 0px 120px;
 }
+.addTodo {
+  width: 25%;
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+}
+.addText {
+  width: 300px;
+}
