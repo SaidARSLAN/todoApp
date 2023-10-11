@@ -12,6 +12,7 @@ const AddTodo = () => {
 
   const handleClick = () => {
       dispatch(ADD_TODO({"title":title,"id":todos.length}));
+      setTitle("");
   }
 
   return (

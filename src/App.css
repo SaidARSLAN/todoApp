@@ -44,3 +44,20 @@ html,body {
 .welcome button {
   margin-left: 12px;
 }
+.todo {
+  margin-top: 24px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.todo h4 {
+  margin-left: 12px;
+}
+.todo-button {
+  display: flex;
+  margin-left: 12px;
+}
+.todo-button button {
+    margin-right: 12px;
+}
