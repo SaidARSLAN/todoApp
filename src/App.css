@@ -37,3 +37,10 @@ html,body {
 .addText {
   width: 300px;
 }
+.welcome {
+  display: flex;
+  width: 100%;
+}
+.welcome button {
+  margin-left: 12px;
+}
