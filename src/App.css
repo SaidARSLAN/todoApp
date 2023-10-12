@@ -61,3 +61,6 @@ html,body {
 .todo-button button {
     margin-right: 12px;
 }
+.completed {
+  text-decoration: line-through;
+}

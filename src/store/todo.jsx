@@ -27,10 +27,23 @@ const todos = createSlice({
                             return todo;
                         }
                 })
+        },
+        COMPLETE_TODO : (state,action) => {
+            state.todos = state.todos.map((todo) => {
+                if (todo.id === action.payload) {
+                    return {
+                        ...todo,
+                        completed : true
+                    }
+                }
+                else {
+                    return todo;
+                }
+            })
         }
     }
 })
 
-export const {ADD_TODO,DELETE_TODO,EDIT_TODO} = todos.actions
+export const {ADD_TODO,DELETE_TODO,EDIT_TODO,COMPLETE_TODO} = todos.actions
 
 export default todos.reducer

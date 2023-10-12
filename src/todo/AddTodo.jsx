@@ -11,7 +11,7 @@ const AddTodo = () => {
     const user = useSelector(state => state.auth.user);
 
   const handleClick = () => {
-      dispatch(ADD_TODO({"title":title,"id":todos.length}));
+      dispatch(ADD_TODO({"title":title,"id":todos.length,"completed":false}));
       setTitle("");
   }
 
