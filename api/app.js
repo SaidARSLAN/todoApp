@@ -30,7 +30,8 @@ mongoose.connect(URL)
 
 app.get("/todos",(request,response) => {
 
-    response.send("Todos are showing...")
+    Todo.find({})
+    .then(result => response.send(result))
 
 })
 app.post("/todos",(request,response) => {

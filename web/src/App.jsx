@@ -13,6 +13,7 @@ function App() {
     <Container className="pt-5">
       <Row>
       <CreateTodo />
+      <TodoList />
       </Row>
     </Container>
     </main>
