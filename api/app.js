@@ -1,5 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const {Todo} = require('./models/todo')
+
+
 const PORT_NUMBER = 3434
 
 const username = "admin"
@@ -12,7 +15,8 @@ const URL = `mongodb://${username}:${password}@${ip}:${db_port}/?authSource=${da
 
 const app = express()
 
-app.use(express.json)
+app.use(express.json())
+
 app.use((req,res,next) => {
     res.setHeader("Access-Control-Allow-Origin","*"),
     res.setHeader("Access-Control-Allow-Methods","*")
@@ -28,7 +32,20 @@ app.get("/todos",(request,response) => {
     response.send("Todos are showing...")
 
 })
+app.post("/todos",(request,response) => {
 
+    const todo = new Todo({
+        id : request.body.id,
+        title : request.body.title,
+        description : request.body.description,
+        isCompleted : request.body.isCompleted
+    })
+
+    todo.save()
+    .then(result => response.send(result))
+    .catch(err => console.log(err))
+
+})
 
 app.listen(PORT_NUMBER, (req,res) => {
 
