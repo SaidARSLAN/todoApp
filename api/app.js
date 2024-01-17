@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const {Todo} = require('./models/todo')
 
 
@@ -17,12 +18,12 @@ const app = express()
 
 app.use(express.json())
 
-app.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin","*"),
-    res.setHeader("Access-Control-Allow-Methods","*")
-    next()
-})
-
+// app.use((req,res,next) => {
+//     res.setHeader("Access-Control-Allow-Origin","*"),
+//     res.setHeader("Access-Control-Allow-Methods","*")
+//     next()
+// })
+app.use(cors())
 mongoose.connect(URL)
 .then(() => console.log("Mongodb server has been established!"))
 .catch(err => console.log("Database error:",err))
