@@ -23,6 +23,8 @@ app.use(express.json())
 //     res.setHeader("Access-Control-Allow-Methods","*")
 //     next()
 // })
+
+
 app.use(cors())
 mongoose.connect(URL)
 .then(() => console.log("Mongodb server has been established!"))
@@ -47,6 +49,15 @@ app.post("/todos",(request,response) => {
     .then(result => response.send(result))
     .catch(err => console.log(err))
 
+})
+app.put('/todos',(request,response) => {
+
+    response.send("put request")
+
+})
+
+app.delete('/todos',(request,response) => {
+    response.send("delete request")
 })
 
 app.listen(PORT_NUMBER, (req,res) => {
