@@ -1,15 +1,10 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import  Todo  from '../components/Todo'
 import Table from 'react-bootstrap/Table'
+import GlobalContext from '../context/MainContext'
 const TodoList = () => {
 
-  const [todos, setTodos] = useState([])
-  useEffect(() => {
-      axios.get("http://localhost:3434/todos")
-      .then(result => setTodos(result.data))
-      .catch(err => console.log(err))
-  },[])
+    const {todos} = useContext(GlobalContext)
 
   return (
       <Table striped bordered hover variant='white' className='mt-3'>
