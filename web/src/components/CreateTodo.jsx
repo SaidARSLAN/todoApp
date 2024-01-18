@@ -7,19 +7,26 @@ import GlobalContext from '../context/MainContext';
 
 const CreateTodo = () => {
 
+    
+
     const {addTodo} = useContext(GlobalContext)
-    const [id,setId] = useState(null)
+    const [id,setId] = useState(0)
     const [title,setTitle] = useState("")
     const [description,setDescription] = useState("")
 
+    
+
     const handleSubmit = (event) => {
       event.preventDefault()
+      
+      setId(Math.floor(Math.random() * 200))
+      console.log(id)
       axios.post('http://localhost:3434/todos',
       {
         headers : {
           "Access-Control-Allow-Origin": "*"
         },
-        id : 0,
+        id : id,
         title : title,
         description : description,
         isCompleted : false
@@ -30,7 +37,8 @@ const CreateTodo = () => {
           addTodo({
             id,
             title,
-            description
+            description,
+            isCompleted : false
           })
           setTitle("")
           setDescription("")

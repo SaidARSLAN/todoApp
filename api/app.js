@@ -50,14 +50,34 @@ app.post("/todos",(request,response) => {
     .catch(err => console.log(err))
 
 })
-app.put('/todos',(request,response) => {
+app.put('/todos/:id',(request,response) => {
+    const id = request.params.id
 
-    response.send("put request")
+
+    const todo = {
+        title : request.body.title,
+        description : request.body.description,
+        isCompleted : request.body.isCompleted
+    }
+
+    const filter = {id : id}
+
+    Todo.findOneAndUpdate(filter, todo)
+    .then(result => response.send(result))
+    .catch(err => console.log(err))
+
+
 
 })
 
-app.delete('/todos',(request,response) => {
-    response.send("delete request")
+app.delete('/todos/:id',(request,response) => {
+
+    const id = request.params.id
+
+    Todo.deleteOne({id : id}).
+    then(() => response.status(200).json({message : "The todo has been deleted"}))
+    .catch(err => console.log(err))
+
 })
 
 app.listen(PORT_NUMBER, (req,res) => {
