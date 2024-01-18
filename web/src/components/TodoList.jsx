@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import  Todo  from '../components/Todo'
-
+import Table from 'react-bootstrap/Table'
 const TodoList = () => {
 
   const [todos, setTodos] = useState([])
@@ -12,9 +12,17 @@ const TodoList = () => {
   },[])
 
   return (
-    <div>{
-        todos.map((todo) => <Todo todo={todo} key={todo + todo.description}/>)
-      }</div>
+      <Table striped bordered hover variant='white' className='mt-3'>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{todos.map((todo,idx) => <Todo todo={todo} idx={idx} key={todo + todo.description}/>)}</tbody>
+      </Table>
   )
 }
 
