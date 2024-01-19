@@ -21,9 +21,31 @@ export const Provider = ({children}) => {
     .then(result => console.log("TODO HAS BEEN DELETED"))
     .catch(err => console.log(err))
   }
+  const completeEdit = (id,title,description) => {
+    axios.put(`http://localhost:3434/todos/${id}`,
+    {
+      id,
+      title,
+      description
+    })
+    .then(result => console.log("TODO HAS BEEN UPDATED",result.data))
+    .catch(err => console.log(err))
 
+      const afterUpdatedTodos = todos.map((todo) => {
+          if (todo.id === id) {
+              return {
+              ...todo,
+              title : title,
+              description : description
+            }
+          }
+          return todos
+      })
+      setTodos(afterUpdatedTodos)
+      
+  }
     return (
-        <GlobalContext.Provider value={{todos,addTodo,deleteTodo}}>
+        <GlobalContext.Provider value={{todos,addTodo,deleteTodo,completeEdit}}>
             {children}
         </GlobalContext.Provider>
     )

@@ -19,8 +19,10 @@ const customStyles = {
 
 const Todo = ({todo,idx}) => {
 
-  const {deleteTodo} = useContext(GlobalContext)
+  const {deleteTodo, completeEdit} = useContext(GlobalContext)
   const [isModalOpen, setIsOpenModal] = useState(false)
+  const [updatedTitle, setUpdatedTitle] = useState(todo.title)
+  const [updatedDescription, setUpdatedDescription] = useState(todo.description)
 
     const openModal = () => {
       setIsOpenModal(true)
@@ -31,7 +33,9 @@ const Todo = ({todo,idx}) => {
     const closeModal = () => {
       setIsOpenModal(false)
     }
-
+    const handleEditSubmit = (event) => {
+        completeEdit(todo.id,updatedTitle,updatedDescription)
+    }
   return (
     <tr>
       <td>{idx}</td>
@@ -49,13 +53,15 @@ const Todo = ({todo,idx}) => {
       contentLabel='Edit Current Todo'
       >
         <h3 className='text-center'>Edit</h3>
-        <Form>
+        <Form onSubmit={handleEditSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Todo Title</Form.Label>
         <Form.Control 
         type="text"
         placeholder="Update Todo Title..."
         name='title'
+        value={updatedTitle}
+        onChange={e => setUpdatedTitle(e.target.value)}
         />
       </Form.Group>
 
@@ -66,6 +72,8 @@ const Todo = ({todo,idx}) => {
         rows={4}
         name='description'
         placeholder='Update Todo Description...'
+        value={updatedDescription}
+        onChange={e => setUpdatedDescription(e.target.value)}
         />
       </Form.Group>
       <Button variant="success" type="submit">
