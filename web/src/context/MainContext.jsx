@@ -34,12 +34,12 @@ export const Provider = ({children}) => {
       const afterUpdatedTodos = todos.map((todo) => {
           if (todo.id === id) {
               return {
-              ...todo,
+              id : id,
               title : title,
               description : description
             }
           }
-          return todos
+          return todo
       })
       setTodos(afterUpdatedTodos)
       

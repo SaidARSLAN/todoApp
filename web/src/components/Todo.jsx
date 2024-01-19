@@ -25,6 +25,7 @@ const Todo = ({todo,idx}) => {
   const [updatedDescription, setUpdatedDescription] = useState(todo.description)
 
     const openModal = () => {
+      console.log(todo.id)
       setIsOpenModal(true)
     }
     const afterOpenModal = () => {
