@@ -23,8 +23,8 @@ const Todo = ({todo,idx}) => {
   const [isModalOpen, setIsOpenModal] = useState(false)
   const [updatedTitle, setUpdatedTitle] = useState(todo.title)
   const [updatedDescription, setUpdatedDescription] = useState(todo.description)
-
-    const openModal = () => {
+  const [isCompleted, setIsCompleted] = useState(false)
+    const openModal = () => { 
       console.log(todo.id)
       setIsOpenModal(true)
     }
@@ -35,13 +35,14 @@ const Todo = ({todo,idx}) => {
       setIsOpenModal(false)
     }
     const handleEditSubmit = (event) => {
-        completeEdit(todo.id,updatedTitle,updatedDescription)
+        completeEdit(todo.id,updatedTitle,updatedDescription,isCompleted)
     }
   return (
     <tr>
       <td>{idx}</td>
       <td>{todo.title}</td>
       <td>{todo.description}</td>
+      <td>{isCompleted ? "Completed" : "Not Complete"}</td>
       <Stack direction='horizontal' gap={3}>
         <Button className='ms-auto' onClick={openModal}>Edit</Button>
         <Button variant='danger' onClick={() => deleteTodo(todo.id)}>Delete</Button>
@@ -60,7 +61,7 @@ const Todo = ({todo,idx}) => {
         <Form.Control 
         type="text"
         placeholder="Update Todo Title..."
-        name='title'
+        name='updatedTitle'
         value={updatedTitle}
         onChange={e => setUpdatedTitle(e.target.value)}
         />
@@ -71,11 +72,21 @@ const Todo = ({todo,idx}) => {
         <Form.Control
         as="textarea"
         rows={4}
-        name='description'
+        name='updatedDescription'
         placeholder='Update Todo Description...'
         value={updatedDescription}
         onChange={e => setUpdatedDescription(e.target.value)}
         />
+      </Form.Group>
+      <Form.Group className='mb-3'>
+          <Form.Check
+          type='checkbox'
+          label="Completed todo"
+          value={isCompleted}
+          name='isComplete'
+          checked={isCompleted === true}
+          onChange={e => setIsCompleted(e.target.checked)}
+          />
       </Form.Group>
       <Button variant="success" type="submit">
         Submit

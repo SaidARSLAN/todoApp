@@ -21,12 +21,13 @@ export const Provider = ({children}) => {
     .then(result => console.log("TODO HAS BEEN DELETED"))
     .catch(err => console.log(err))
   }
-  const completeEdit = (id,title,description) => {
+  const completeEdit = (id,title,description,isCompleted) => {
     axios.put(`http://localhost:3434/todos/${id}`,
     {
       id,
       title,
-      description
+      description,
+      isCompleted
     })
     .then(result => console.log("TODO HAS BEEN UPDATED",result.data))
     .catch(err => console.log(err))
@@ -36,7 +37,8 @@ export const Provider = ({children}) => {
               return {
               id : id,
               title : title,
-              description : description
+              description : description,
+              isCompleted : isCompleted
             }
           }
           return todo
