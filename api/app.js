@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const todo = require('./routes/todo')
-
+const user = require('./routes/user')
 const PORT_NUMBER = 3434
 
 const username = "admin"
@@ -30,7 +30,7 @@ mongoose.connect(URL)
 .catch(err => console.log("Database error:",err))
 
 app.use('/',todo)
-
+app.use('/user',user)
 
 app.listen(PORT_NUMBER, (req,res) => {
 
