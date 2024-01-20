@@ -18,7 +18,7 @@ export const Provider = ({children}) => {
     const afterDeletedTodos = todos.filter((todo) => todo.id !== id)
     setTodos(afterDeletedTodos)
     axios.delete(`http://localhost:3434/todos/${id}`)
-    .then(result => console.log("TODO HAS BEEN DELETED"))
+    .then(result => console.log("TODO HAS BEEN DELETED",result.data))
     .catch(err => console.log(err))
   }
   const completeEdit = (id,title,description,isCompleted) => {

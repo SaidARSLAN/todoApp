@@ -5,7 +5,6 @@ import GlobalContext from '../context/MainContext'
 const TodoList = () => {
 
     const {todos} = useContext(GlobalContext)
-
   return (
       <Table striped bordered hover variant='white' className='mt-3'>
         <thead>

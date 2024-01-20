@@ -14,12 +14,14 @@ const CreateTodo = () => {
     const [title,setTitle] = useState("")
     const [description,setDescription] = useState("")
 
-    
+    const createRandomNumber = () => {
+      return Math.floor(Math.random() * 245)
+    }
 
     const handleSubmit = (event) => {
       event.preventDefault()
       
-      setId(Math.floor(Math.random() * 200))
+      setId(Math.floor(Math.random() * 200) * createRandomNumber())
       console.log(id)
       axios.post('http://localhost:3434/todos',
       {
