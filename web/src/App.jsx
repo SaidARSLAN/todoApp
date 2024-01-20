@@ -1,21 +1,20 @@
-import CreateTodo from "./components/CreateTodo"
-import TodoList from "./components/TodoList"
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Route, Router, Routes } from 'react-router-dom'
 import './styles/reset.css'
-import { useEffect } from "react";
+import Profile from './pages/Profile'
+import Register from './pages/Register'
+import Login from './pages/Login'
 function App() {
 
   
   return (
     <main className="main-color">
-    <Container className="pt-5">
-      <Row>
-      <CreateTodo />
-      <TodoList />
-      </Row>
-    </Container>
+      <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/profile' element={<Profile />}/>
+          <Route path='/register' element={<Register />} />
+      </Routes>
+
+    
     </main>
   )
 }
