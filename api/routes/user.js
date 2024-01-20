@@ -13,7 +13,7 @@ router.get("/", async (req,res) => {
 })
 
 
-router.post("/", async (req,res) => {
+router.post("/create", async (req,res) => {
     
     const hashedPassword = await bcrypt.hash(req.body.password,10)
 
@@ -24,8 +24,8 @@ router.post("/", async (req,res) => {
     })
 
     await user.save()
-
-    res.send(user)
+    const token = user.createAuthToken()
+    res.header("x-auth-token", token).send(user);
 })
 
 router.post("/auth", async (req,res) => {
@@ -42,9 +42,10 @@ router.post("/auth", async (req,res) => {
         return res.status(400).send("hatalı email ya da parola!")
     }
 
-    const token = jwt.sign({_id : user._id},'jwtPrivateKey')
+    const token = user.createAuthToken()
     res.send(token)
 })
+
 
 
 module.exports = router

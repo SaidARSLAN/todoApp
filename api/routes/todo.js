@@ -2,7 +2,8 @@ const express = require('express')
 
 const router = express.Router()
 const {Todo} = require('../models/todo')
-
+const auth = require('../middleware/auth')
+const isAdmin = require('../middleware/isAdmin')
 
 router.get("/todos",(request,response) => {
 
@@ -11,7 +12,9 @@ router.get("/todos",(request,response) => {
 
 })
 
-router.post("/todos",(request,response) => {
+router.post("/todos",[auth,isAdmin],(request,response) => {
+
+
 
     const todo = new Todo({
         id : request.body.id,
