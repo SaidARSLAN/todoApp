@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form'
 import axios from 'axios'
 import GlobalContext from '../context/MainContext';
-
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col';
 const CreateTodo = () => {
 
     
@@ -50,32 +51,38 @@ const CreateTodo = () => {
     }
 
   return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Todo Title</Form.Label>
-        <Form.Control 
-        type="text"
-        placeholder="Add Todo..."
-        name='title'
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>Todo Description</Form.Label>
-        <Form.Control
-        as="textarea"
-        rows={4}
-        name='description'
-        value={description}
-        onChange={e => setDescription(e.target.value)}
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit" disabled={!globalLoginToken}>
-        Submit
-      </Button>
-        </Form>
+    <Form onSubmit={handleSubmit}>
+    <Row className="justify-content-md-center">
+      <Col xs={12} md={6}>
+      <h1 className='mb-3 text-center'>Add Todo</h1>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Todo Title</Form.Label>
+          <Form.Control 
+            type="text"
+            placeholder="Add Todo..."
+            name='title'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
+        </Form.Group>
+  
+        <Form.Group className="mb-3">
+          <Form.Label>Todo Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            name='description'
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
+        </Form.Group>
+  
+        <Button variant="primary" type="submit" disabled={!globalLoginToken}>
+          Submit
+        </Button>
+      </Col>
+    </Row>
+  </Form>
     )
 }
 
