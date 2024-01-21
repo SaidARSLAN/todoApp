@@ -8,7 +8,7 @@ export const Provider = ({children}) => {
 
     const [todos, setTodos] = useState([])
     const [globalLoginToken, setGlobalLoginToken] = useState(null)
-
+    const [userInformations, setUserInformations] = useState(null)
 
   useEffect(() => {
       axios.get("http://localhost:3434/todos")
@@ -71,13 +71,13 @@ export const Provider = ({children}) => {
       
     
   }
-  const keepLoginToken = (data) => {
-
+  const keepLoginToken = (data,user) => {
       setGlobalLoginToken(data)
+      setUserInformations(user)
   }
     return (
         <GlobalContext.Provider value={{todos,addTodo,deleteTodo,completeEdit,keepLoginToken,
-        globalLoginToken
+        globalLoginToken,userInformations
         }}>
             {children}
         </GlobalContext.Provider>

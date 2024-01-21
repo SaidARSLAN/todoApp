@@ -21,8 +21,10 @@ const Login = () => {
                 password : password
         })
         .then(result => {
-            console.log("Token :",result.data)
-            keepLoginToken(result.data)
+          console.log(result)
+            console.log("Token :",result.data.token)
+
+            keepLoginToken(result.data,result.data.user)
             setEmail("")
             setPassword("")
             navigate("/profile")

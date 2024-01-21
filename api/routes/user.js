@@ -50,9 +50,13 @@ router.post("/auth", async (req,res) => {
         'jwtPrivateKey'
         
         )
-    res.header("x-auth-token",token).send(token)
+    res.header("x-auth-token",token).send({token : token, user: user})
 })
 
+router.post("/logout", (request, response) => {
 
+    request.session = null
+    response.send("LOGOUT")
+})
 
 module.exports = router
