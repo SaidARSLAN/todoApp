@@ -87,9 +87,8 @@ const Todo = ({todo,idx}) => {
           <Form.Check
           type='checkbox'
           label="Completed todo"
-          value={todo.isCompleted}
           name='isComplete'
-          checked={todo.isCompleted === true}
+          checked={isCompleted === true}
           onChange={e => setIsCompleted(e.target.checked)}
           />
       </Form.Group>

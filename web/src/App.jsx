@@ -1,4 +1,4 @@
-import { Link, Route, Router, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './styles/reset.css'
 import Profile from './pages/Profile'
 import Register from './pages/Register'
