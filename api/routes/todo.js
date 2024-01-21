@@ -54,7 +54,7 @@ router.put('/todos/:id',auth,(request,response) => {
 router.delete('/todos/:id',[auth,isAdmin],(request,response) => {
 
     const id = request.params.id
-
+    
     Todo.deleteOne({id : id})
     .then(() => response.status(200).json({message : "The todo has been deleted"}))
     .catch(err => console.log(err))

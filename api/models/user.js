@@ -21,7 +21,15 @@ const userSchema = mongoose.Schema({
 
 }, {timeStamps : true})
 
+userSchema.methods.createToken = () => {
+    console.log(this)
+    const token = jwt.sign({
+        _id : this._id,
+        isAdmin : this.isAdmin        
+    }, 'jwtPrivateKey')
 
+    return token
+}
 
 const User = mongoose.model("User",userSchema)
 
