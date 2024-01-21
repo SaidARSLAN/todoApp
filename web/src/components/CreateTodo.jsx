@@ -9,8 +9,7 @@ const CreateTodo = () => {
 
     
 
-    const {addTodo} = useContext(GlobalContext)
-    const [id,setId] = useState(0)
+    const {addTodo,globalLoginToken} = useContext(GlobalContext)
     const [title,setTitle] = useState("")
     const [description,setDescription] = useState("")
 
@@ -20,24 +19,25 @@ const CreateTodo = () => {
 
     const handleSubmit = (event) => {
       event.preventDefault()
-      
-      setId(Math.floor(Math.random() * 200) * createRandomNumber())
-      console.log(id)
-      axios.post('http://localhost:3434/todos',
-      {
-        headers : {
-          "Access-Control-Allow-Origin": "*"
-        },
-        id : id,
+      const newId = Math.floor(Math.random() * 200) * createRandomNumber()
+      axios.post('http://localhost:3434/todos',{
+        id : newId,
         title : title,
         description : description,
         isCompleted : false
-      })
+        },{
+
+          headers : {
+            "Access-Control-Allow-Origin": "*",
+            "x-auth-token" : globalLoginToken
+          },
+        }
+      )
       .then(result => {
         if (result.status === 200) {
           console.log("Todo has been sended",result.data)
           addTodo({
-            id,
+            id : newId,
             title,
             description,
             isCompleted : false
@@ -72,7 +72,7 @@ const CreateTodo = () => {
         onChange={e => setDescription(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" disabled={!globalLoginToken}>
         Submit
       </Button>
         </Form>

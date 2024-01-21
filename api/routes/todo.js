@@ -1,9 +1,8 @@
 const express = require('express')
 
 const router = express.Router()
+const auth = require('../middlwares/auth')
 const {Todo} = require('../models/todo')
-const auth = require('../middleware/auth')
-const isAdmin = require('../middleware/isAdmin')
 
 router.get("/todos",(request,response) => {
 
@@ -12,8 +11,12 @@ router.get("/todos",(request,response) => {
 
 })
 
-router.post("/todos",[auth,isAdmin],(request,response) => {
+router.post("/todos",auth,(request,response) => {
 
+
+    const auth = request.header("x-auth-token")
+
+    console.log(auth,request.body)
 
 
     const todo = new Todo({
@@ -26,9 +29,8 @@ router.post("/todos",[auth,isAdmin],(request,response) => {
     todo.save()
     .then(result => response.send(result))
     .catch(err => console.log(err))
-
 })
-router.put('/todos/:id',(request,response) => {
+router.put('/todos/:id',auth,(request,response) => {
     const id = request.params.id
 
 
@@ -48,12 +50,12 @@ router.put('/todos/:id',(request,response) => {
 
 })
 
-router.delete('/todos/:id',(request,response) => {
+router.delete('/todos/:id',auth,(request,response) => {
 
     const id = request.params.id
 
-    Todo.deleteOne({id : id}).
-    then(() => response.status(200).json({message : "The todo has been deleted"}))
+    Todo.deleteOne({id : id})
+    .then(() => response.status(200).json({message : "The todo has been deleted"}))
     .catch(err => console.log(err))
 
 })

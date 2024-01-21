@@ -8,18 +8,21 @@ const {User} = require('../models/user')
 
 
 router.post("/create", async (req,res) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password,10)
+
+        let user = new User({
+            name : req.body.name,
+            email : req.body.email,
+            password : hashedPassword
+        })
     
-    const hashedPassword = await bcrypt.hash(req.body.password,10)
-
-    let user = new User({
-        name : req.body.name,
-        email : req.body.email,
-        password : hashedPassword
-    })
-
-    await user.save()
-    const token = user.createAuthToken()
-    res.header("x-auth-token", token).send(user);
+        await user.save()
+        res.send(user);
+    }
+    catch (err) {
+        console.log(err)
+    }
 })
 
 router.post("/auth", async (req,res) => {
@@ -36,8 +39,11 @@ router.post("/auth", async (req,res) => {
         return res.status(400).send("hatalı email ya da parola!")
     }
 
-    const token = user.createAuthToken()
-    res.send(token)
+
+    // If everything is working well then create token and send to client!
+    // _id data which I want to keep in our token
+    const token = jwt.sign({_id : user._id},'jwtPrivateKey')
+    res.header("x-auth-token",token).send(token)
 })
 
 

@@ -21,7 +21,7 @@ const customStyles = {
 
 
 const Todo = ({todo,idx}) => {
-  const {deleteTodo, completeEdit} = useContext(GlobalContext)
+  const {deleteTodo, completeEdit,globalLoginToken} = useContext(GlobalContext)
   const [isModalOpen, setIsOpenModal] = useState(false)
   const [updatedTitle, setUpdatedTitle] = useState(todo.title)
   const [updatedDescription, setUpdatedDescription] = useState(todo.description)
@@ -48,8 +48,8 @@ const Todo = ({todo,idx}) => {
       <td>{todo.description}</td>
       <td>{todo.isCompleted ? <MdDone color='green' size={40}/> : "On Going..."}</td>
       <Stack direction='horizontal' gap={3}>
-        <Button className='ms-auto' onClick={openModal}><FaEdit size={25}/></Button>
-        <Button variant='danger' onClick={() => deleteTodo(todo.id)}><RiDeleteBin6Fill size={25}/></Button>
+        <Button className='ms-auto' disabled={!globalLoginToken} onClick={openModal}><FaEdit size={25}/></Button>
+        <Button variant='danger' disabled={!globalLoginToken} onClick={() => deleteTodo(todo.id)}><RiDeleteBin6Fill size={25}/></Button>
       </Stack>
       <Modal
       isOpen={isModalOpen}

@@ -7,6 +7,9 @@ const GlobalContext = createContext()
 export const Provider = ({children}) => {
 
     const [todos, setTodos] = useState([])
+    const [globalLoginToken, setGlobalLoginToken] = useState(null)
+
+
   useEffect(() => {
       axios.get("http://localhost:3434/todos")
       .then(result => setTodos(result.data))
@@ -15,10 +18,19 @@ export const Provider = ({children}) => {
     const addTodo = (todo) => setTodos([...todos, todo])
 
   const deleteTodo = (id) => {
-    const afterDeletedTodos = todos.filter((todo) => todo.id !== id)
+    
+    axios.delete(`http://localhost:3434/todos/${id}`, {
+      headers : {
+        "Access-Control-Allow-Origin": "*",
+        "x-auth-token" : globalLoginToken
+      },
+    })
+    .then(result => {
+        if (result.status === 200) {
+          const afterDeletedTodos = todos.filter((todo) => todo.id !== id)
     setTodos(afterDeletedTodos)
-    axios.delete(`http://localhost:3434/todos/${id}`)
-    .then(result => console.log("TODO HAS BEEN DELETED",result.data))
+        }
+    })
     .catch(err => console.log(err))
   }
   const completeEdit = (id,title,description,isCompleted) => {
@@ -28,13 +40,21 @@ export const Provider = ({children}) => {
       title,
       description,
       isCompleted
-    })
-    .then(result => console.log("TODO HAS BEEN UPDATED",result.data))
-    .catch(err => console.log(err))
+    }
+    ,
+    {
+      headers : {
+        "Access-Control-Allow-Origin": "*",
+        "x-auth-token" : globalLoginToken
+      },
+    }
+    )
+    .then(result => {
+      if (result.status === 200) {
 
-      const afterUpdatedTodos = todos.map((todo) => {
+        const afterUpdatedTodos = todos.map((todo) => {
           if (todo.id === id) {
-              return {
+            return {
               id : id,
               title : title,
               description : description,
@@ -42,12 +62,23 @@ export const Provider = ({children}) => {
             }
           }
           return todo
-      })
-      setTodos(afterUpdatedTodos)
+        })
+        setTodos(afterUpdatedTodos)
+      }
+    })
+    .catch(err => console.log(err))
+
       
+    
+  }
+  const keepLoginToken = (data) => {
+
+      setGlobalLoginToken(data)
   }
     return (
-        <GlobalContext.Provider value={{todos,addTodo,deleteTodo,completeEdit}}>
+        <GlobalContext.Provider value={{todos,addTodo,deleteTodo,completeEdit,keepLoginToken,
+        globalLoginToken
+        }}>
             {children}
         </GlobalContext.Provider>
     )

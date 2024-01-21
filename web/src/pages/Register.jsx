@@ -21,12 +21,16 @@ const Register = () => {
                 email : email,
                 password : password
         })
-        .then(result => console.log("The user has been created",result))
-        .catch(err => console.log(err))
+        .then(result => 
+        {
+        console.log("The user has been created",result)
         setNameSurname("")
         setEmail("")
         setPassword("")
         navigate("/login")
+        })
+        .catch(err => console.log(err))
+        
     }
 
     return (

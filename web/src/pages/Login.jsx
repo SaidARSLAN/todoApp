@@ -4,13 +4,14 @@ import Container from 'react-bootstrap/esm/Container'
 import Row from 'react-bootstrap/esm/Row'
 import axios from 'axios'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import GlobalContext from '../context/MainContext'
 
 const Login = () => {
     const [email,setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const {keepLoginToken} = useContext(GlobalContext)
     const navigate = useNavigate()
 
     const handleLogin = (event) => {
@@ -19,11 +20,15 @@ const Login = () => {
                 email : email,
                 password : password
         })
-        .then(result => console.log("The user has been created",result))
+        .then(result => {
+            console.log("Token :",result.data)
+            keepLoginToken(result.data)
+            setEmail("")
+            setPassword("")
+            navigate("/profile")
+        })
         .catch(err => console.log(err))
-        setEmail("")
-        setPassword("")
-        navigate("/profile")
+        
     }
 
     return (
