@@ -12,11 +12,15 @@ import {Link  } from 'react-router-dom'
 
 const Profile = () => {
   
-    const {userInformations} = useContext(GlobalContext)
+    const {userInformations,clearCache} = useContext(GlobalContext)
     const handleLogout = () => {
 
       axios.post(`http://localhost:3434/user/logout`,)
-      .then(result => console.log(result))
+      .then(result => {
+
+        clearCache()
+
+      })
       .catch(err => console.log(err))
 
     }

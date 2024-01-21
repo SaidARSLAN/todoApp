@@ -75,9 +75,17 @@ export const Provider = ({children}) => {
       setGlobalLoginToken(data)
       setUserInformations(user)
   }
+
+  const clearCache = () => {
+
+    setGlobalLoginToken(null)
+    setUserInformations(null)
+
+  }
+
     return (
         <GlobalContext.Provider value={{todos,addTodo,deleteTodo,completeEdit,keepLoginToken,
-        globalLoginToken,userInformations
+        globalLoginToken,userInformations,clearCache
         }}>
             {children}
         </GlobalContext.Provider>
