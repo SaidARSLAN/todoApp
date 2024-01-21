@@ -9,7 +9,8 @@ import GlobalContext from "../context/MainContext";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import {Link  } from 'react-router-dom'
-
+import { IoMdExit } from "react-icons/io";
+import { IoIosLogIn } from "react-icons/io";
 const Profile = () => {
   
     const {userInformations,clearCache} = useContext(GlobalContext)
@@ -37,8 +38,8 @@ const Profile = () => {
           {userInformations ?  userInformations.email : "unknown"}
         </Card.Text>
         {userInformations ?
-         <Button variant="danger" onClick={handleLogout}>Exit</Button> :
-        <Link className="btn btn-primary" to='/login'>Log in</Link>
+         <Button variant="danger" onClick={handleLogout} style={{fontSize:"18px",letterSpacing:"1.2px"}}>Exit <IoMdExit size={25}/></Button> :
+        <Link className="btn btn-primary" to='/login'>Log in <IoIosLogIn size={25}/></Link>
          }
       </Card.Body>
     </Card>
