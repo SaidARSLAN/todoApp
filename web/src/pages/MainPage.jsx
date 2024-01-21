@@ -8,6 +8,7 @@ const MainPage = () => {
 
     return (
         <Container className='main-page'>
+          <h1>Welcome, Todo App</h1>
         <Row>
             <Col>
           <Link to='/login'  className='btn btn-primary'>Login</Link>

@@ -42,7 +42,14 @@ router.post("/auth", async (req,res) => {
 
     // If everything is working well then create token and send to client!
     // _id data which I want to keep in our token
-    const token = jwt.sign({_id : user._id},'jwtPrivateKey')
+    const token = jwt.sign(
+        {
+            _id : user._id,
+            isAdmin : user.isAdmin
+        },
+        'jwtPrivateKey'
+        
+        )
     res.header("x-auth-token",token).send(token)
 })
 

@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const auth = require('../middlwares/auth')
 const {Todo} = require('../models/todo')
+const isAdmin = require('../middlwares/isAdmin')
 
 router.get("/todos",(request,response) => {
 
@@ -50,7 +51,7 @@ router.put('/todos/:id',auth,(request,response) => {
 
 })
 
-router.delete('/todos/:id',auth,(request,response) => {
+router.delete('/todos/:id',[auth,isAdmin],(request,response) => {
 
     const id = request.params.id
 
