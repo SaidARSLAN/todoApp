@@ -15,20 +15,20 @@ export const Provider = ({children}) => {
       .then(result => setTodos(result.data))
       .catch(err => console.log(err))
   },[])
-    const addTodo = (todo) => setTodos([...todos, todo])
+    
+  const addTodo = (todo) => setTodos([...todos, todo])
 
   const deleteTodo = (id) => {
     
     axios.delete(`http://localhost:3434/todos/${id}`, {
       headers : {
-        "Access-Control-Allow-Origin": "*",
         "x-auth-token" : globalLoginToken
       },
     })
     .then(result => {
         if (result.status === 200) {
           const afterDeletedTodos = todos.filter((todo) => todo.id !== id)
-    setTodos(afterDeletedTodos)
+          setTodos(afterDeletedTodos)
         }
     })
     .catch(err => console.log(err))
@@ -44,7 +44,6 @@ export const Provider = ({children}) => {
     ,
     {
       headers : {
-        "Access-Control-Allow-Origin": "*",
         "x-auth-token" : globalLoginToken
       },
     }

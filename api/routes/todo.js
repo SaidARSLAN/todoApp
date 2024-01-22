@@ -8,7 +8,8 @@ const isAdmin = require('../middlwares/isAdmin')
 router.get("/todos",(request,response) => {
 
     Todo.find({})
-    .then(result => response.send(result))
+    .then(result => response.json(result))
+    .catch(err => console.log(err))
 
 })
 
@@ -28,7 +29,7 @@ router.post("/todos",auth,(request,response) => {
     })
 
     todo.save()
-    .then(result => response.send(result))
+    .then(result => response.json(result))
     .catch(err => console.log(err))
 })
 router.put('/todos/:id',auth,(request,response) => {
@@ -44,14 +45,14 @@ router.put('/todos/:id',auth,(request,response) => {
     const filter = {id : id}
 
     Todo.findOneAndUpdate(filter, todo)
-    .then(result => response.send(result))
+    .then(result => response.json(result))
     .catch(err => console.log(err))
 
 
 
 })
 
-router.delete('/todos/:id',[auth,isAdmin],(request,response) => {
+router.delete('/todos/:id',auth,(request,response) => {
 
     const id = request.params.id
     

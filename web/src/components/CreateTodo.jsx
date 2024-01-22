@@ -27,7 +27,6 @@ const CreateTodo = () => {
         description : description,
         isCompleted : false
         },{
-
           headers : {
             "Access-Control-Allow-Origin": "*",
             "x-auth-token" : globalLoginToken
